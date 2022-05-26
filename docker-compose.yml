@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  WebA:
+    image: php:8-apache
+    volumes:
+      - ./WebA:/var/www/html
+    networks:
+      - internet
+      - networkAB
+    ports:
+      - 7788:80
+  WebB:
+    image: php:8-apache
+    volumes:
+      - ./WebB:/var/www/html
+    networks:
+      - networkAB
+      - networkBC
+  WebC:
+    image: php:8-apache
+    volumes:
+      - ./WebC:/var/www/html
+    networks:
+      - networkBC
+      - networkCD
+  WebD:
+    image: php:8-apache
+    volumes:
+      - ./WebD:/var/www/html
+    networks:
+      - networkCD
+
+networks:
+  internet: {}
+  networkAB:
+    internal: true
+  networkBC:
+    internal: true
+  networkCD:
+    internal: true
